@@ -1,0 +1,39 @@
+/* ========= الصفا للجراحات التخصصية — Brand Tokens ========= */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+  /* الألوان الأساسية */
+  --safa-navy:        #123B7A;   /* الأزرق الملكي - اللون الرئيسي */
+  --safa-teal:        #2A9CA3;   /* الفيروزي الطبي - لون التمييز */
+  --safa-deep:        #0B2550;   /* الكحلي الداكن - خلفيات ونصوص عناوين */
+
+  /* الألوان المساندة */
+  --safa-teal-light:  #E3F3F4;
+  --safa-mist:        #F4F7FB;   /* خلفية الأقسام */
+  --safa-slate:       #5B6B82;  /* النص الثانوي */
+  --safa-line:        #DCE4EE;   /* الحدود والفواصل */
+  --safa-white:       #FFFFFF;
+
+  --safa-gradient: linear-gradient(135deg, #123B7A 0%, #0B2550 100%);
+  --safa-accent-gradient: linear-gradient(90deg, #2A9CA3 0%, #5CC6C9 100%);
+
+  /* الخطوط */
+  --font-ar: 'Tajawal', 'Cairo', sans-serif;
+  --font-en: 'Poppins', sans-serif;
+
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-pill: 999px;
+  --shadow-card: 0 10px 30px rgba(18, 59, 122, .08);
+}
+
+html[dir="rtl"] body { font-family: var(--font-ar); color: var(--safa-deep); }
+h1, h2, h3 { font-family: var(--font-ar); font-weight: 800; color: var(--safa-navy); }
+.en { font-family: var(--font-en); }
+
+.btn-primary { background: var(--safa-teal); color: #fff; border-radius: var(--radius-pill); padding: 14px 32px; font-weight: 700; border: 0; }
+.btn-primary:hover { background: #23868C; }
+.btn-outline { background: transparent; color: var(--safa-navy); border: 2px solid var(--safa-navy); border-radius: var(--radius-pill); padding: 12px 30px; font-weight: 700; }
+.card { background: #fff; border: 1px solid var(--safa-line); border-radius: var(--radius-md); box-shadow: var(--shadow-card); }
+.section-alt { background: var(--safa-mist); }
+.accent-bar { width: 80px; height: 5px; border-radius: 3px; background: var(--safa-accent-gradient); }

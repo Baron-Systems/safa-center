@@ -1,0 +1,11 @@
+node_modules
+.next
+.next-build
+.next-old
+.deploy-state
+out
+next-env.d.ts
+*.tsbuildinfo
+.env.local
+data/
+.env*.local
