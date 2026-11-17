@@ -6,14 +6,33 @@
 //   npm run admin -- remove <email>             حذف مشرف
 //   npm run admin -- list                       عرض المشرفين
 //
-// يقرأ DATA_DIR من البيئة (نفس قيمة الموقع)، والافتراضي ./data
+// يستخدم نفس قاعدة بيانات الموقع: DATA_DIR من البيئة، وإلا من ملفات .env الخاصة بالموقع
+// (.env.production.local ثم .env.local ثم .env)، والافتراضي ./data
 
 import Database from "better-sqlite3";
 import fs from "node:fs";
 import path from "node:path";
 import { randomBytes, scryptSync } from "node:crypto";
+import { fileURLToPath } from "node:url";
 
-const dataDir = path.resolve(process.env.DATA_DIR || "data");
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+
+/** يقرأ قيمة متغير من ملفات إعدادات الموقع بنفس ترتيب أولوية Next.js */
+function fromEnvFiles(key) {
+  for (const f of [".env.production.local", ".env.local", ".env.production", ".env"]) {
+    const file = path.join(root, f);
+    if (!fs.existsSync(file)) continue;
+    for (const line of fs.readFileSync(file, "utf8").split(/\r?\n/)) {
+      const m = line.match(new RegExp(`^\\s*${key}\\s*=\\s*(.*?)\\s*$`));
+      if (m) return { value: m[1].replace(/^["']|["']$/g, ""), file: f };
+    }
+  }
+  return null;
+}
+
+const fromFile = process.env.DATA_DIR ? null : fromEnvFiles("DATA_DIR");
+const dataDir = path.resolve(root, process.env.DATA_DIR || fromFile?.value || "data");
+console.log(`قاعدة البيانات: ${path.join(dataDir, "alsafa.db")}${fromFile ? `  (من ${fromFile.file})` : ""}`);
 fs.mkdirSync(path.join(dataDir, "uploads"), { recursive: true });
 const db = new Database(path.join(dataDir, "alsafa.db"));
 db.pragma("journal_mode = WAL");
